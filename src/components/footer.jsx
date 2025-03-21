@@ -1,26 +1,26 @@
 const Footer = () => {
   return (
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-text">Soñando Nuevile Fusaila</div>
-        <div class="footer-links">
+    <footer className="footer">
+      <div className="container">
+        <div className="footer-text">Soñando Nuevile Fusaila</div>
+        <div className="footer-links">
           Piu Creativo © 2025 • Todos los derechos reservados • Comercio
           electrónico • Aviso de privacidad
         </div>
-        <div class="footer-btns">
-          <a href="#" class="footer-btn primary">
+        <div className="footer-btns">
+          <a href="#" className="footer-btn primary">
             Inicio
           </a>
-          <a href="#" class="footer-btn secondary">
+          <a href="#" className="footer-btn secondary">
             Catálogo
           </a>
         </div>
-        <div class="footer-bottom">
-          <div class="footer-logo">Piu Creativo</div>
-          <div class="footer-copyright">
+        <div className="footer-bottom">
+          <div className="footer-logo">Piu Creativo</div>
+          <div className="footer-copyright">
             ©2025 Piucreativo. Todos los derechos reservados.
           </div>
-          <div class="footer-social">
+          <div className="footer-social">
             <a href="#">f</a>
             <a href="#">t</a>
             <a href="#">ig</a>

@@ -1,35 +1,37 @@
+import { NavLink } from "react-router-dom";
+
 const Navbar = () => {
   return (
-    <nav class="navbar">
-      <div class="container navbar-content">
-        <div class="logo">
+    <nav className="navbar">
+      <div className="container navbar-content">
+        <div className="logo">
           Piu <span>Creativo</span>
         </div>
-        <button class="hamburger">☰</button>
-        <ul class="nav-menu">
+        <button className="hamburger">☰</button>
+        <ul className="nav-menu">
           <li>
-            <a href="#">Inicio</a>
+            <NavLink to="/">Inicio</NavLink>
           </li>
           <li>
-            <a href="#">Catálogo</a>
+            <NavLink to="#">Catálogo</NavLink>
           </li>
           <li>
-            <a href="#">Recomendados</a>
+            <NavLink to="/recommends">Recomendados</NavLink>
           </li>
           <li>
-            <a href="#">Mis Órdenes</a>
+            <NavLink to="#">Mis Órdenes</NavLink>
           </li>
         </ul>
-        <div class="nav-icons">
-          <a href="#" class="cart-icon">
+        <div className="nav-icons">
+          <NavLink to="#" className="cart-icon">
             <span>🛒</span>
-            <span class="badge">2</span>
-          </a>
-          <a href="#" class="notification-icon">
+            <span className="badge">2</span>
+          </NavLink>
+          <NavLink to="#" className="notification-icon">
             <span>🔔</span>
-            <span class="badge">1</span>
-          </a>
-          <a href="#" class="profile-icon">
+            <span className="badge">1</span>
+          </NavLink>
+          <a to="#" className="profile-icon">
             <span>👤</span>
           </a>
         </div>
