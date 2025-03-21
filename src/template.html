@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Piu Creativo</title>
+    <style>
+      /* Estilos generales */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      body {
+        background-color: #fff;
+        color: #333;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 15px;
+      }
+
+      /* Colores personalizados */
+      :root {
+        --rosa-claro: #ffc8dd;
+        --rosa-medio: #b38ca3;
+        --salmon-claro: #ffcdc8;
+        --lila-claro: #f5c8ff;
+        --lila-medio: #ac8cb3;
+      }
+
+      /* Navbar */
+      .navbar {
+        background-color: #fff;
+        padding: 15px 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .navbar-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: var(--rosa-medio);
+      }
+
+      .logo span {
+        color: var(--lila-medio);
+      }
+
+      .nav-menu {
+        display: flex;
+        list-style: none;
+      }
+
+      .nav-menu li {
+        margin-left: 20px;
+      }
+
+      .nav-menu a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav-menu a:hover {
+        color: var(--rosa-medio);
+      }
+
+      .nav-icons {
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-icons a {
+        margin-left: 15px;
+        color: #333;
+        text-decoration: none;
+        position: relative;
+      }
+
+      .nav-icons .badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background-color: var(--rosa-claro);
+        color: #fff;
+        font-size: 0.7rem;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .hamburger {
+        display: none;
+        cursor: pointer;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+      }
+
+      /* Slider */
+      .slider-section {
+        padding: 20px 0;
+        background-color: #f5f5f5;
+      }
+
+      .slider {
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+        height: 300px;
+      }
+
+      .slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--rosa-claro);
+        color: #fff;
+        font-size: 2rem;
+        text-align: center;
+        cursor: pointer;
+      }
+
+      .slide.active {
+        opacity: 1;
+      }
+
+      .slider-controls {
+        position: absolute;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        z-index: 10;
+      }
+
+      .slider-dot {
+        width: 12px;
+        height: 12px;
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        margin: 0 5px;
+        cursor: pointer;
+      }
+
+      .slider-dot.active {
+        background-color: #fff;
+      }
+
+      .slider-arrows {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        z-index: 10;
+        transform: translateY(-50%);
+      }
+
+      .slider-arrow {
+        background-color: rgba(255, 255, 255, 0.5);
+        color: #333;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        font-size: 1.5rem;
+        margin: 0 20px;
+      }
+
+      /* Productos Destacados */
+      .products-section {
+        padding: 40px 0;
+        background-color: #fff;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+        color: #333;
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .product-card {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .product-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        position: relative;
+      }
+
+      .product-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .favorite-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #fff;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .product-info {
+        padding: 15px;
+      }
+
+      .product-title {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .product-price {
+        color: var(--rosa-medio);
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .product-btn {
+        display: block;
+        width: 100%;
+        padding: 8px;
+        background-color: var(--rosa-claro);
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        transition: background-color 0.3s;
+      }
+
+      .product-btn:hover {
+        background-color: var(--rosa-medio);
+      }
+
+      /* Contacto */
+      .contact-section {
+        padding: 40px 0;
+        background-color: var(--rosa-claro);
+      }
+
+      .contact-title {
+        font-size: 2.5rem;
+        color: #fff;
+        text-align: center;
+        margin-bottom: 30px;
+        font-family: "Brush Script MT", cursive;
+      }
+
+      .contact-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .contact-form {
+        padding: 30px;
+      }
+
+      .form-title {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .form-title span {
+        color: var(--rosa-medio);
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-bottom: 1px solid #ddd;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.3s;
+      }
+
+      .form-control:focus {
+        border-color: var(--rosa-medio);
+      }
+
+      .form-check {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .form-check-input {
+        margin-right: 10px;
+      }
+
+      .form-btn {
+        padding: 10px 20px;
+        background-color: var(--rosa-medio);
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .form-btn:hover {
+        background-color: var(--lila-medio);
+      }
+
+      .contact-info {
+        padding: 30px;
+        background-color: var(--lila-medio);
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .info-text {
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
+
+      .contact-details {
+        margin-top: 20px;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .contact-icon {
+        margin-right: 10px;
+        font-size: 1.2rem;
+      }
+
+      .map-container {
+        margin-top: 20px;
+        width: 100%;
+        height: 150px;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      .map-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .social-icons {
+        display: flex;
+        margin-top: 20px;
+      }
+
+      .social-icons a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        margin-right: 10px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+      }
+
+      .social-icons a:hover {
+        background-color: #fff;
+        color: var(--lila-medio);
+      }
+
+      /* Footer */
+      .footer {
+        background-color: #333;
+        color: #fff;
+        padding: 40px 0 20px;
+      }
+
+      .footer-text {
+        text-align: center;
+        margin-bottom: 20px;
+        font-family: "Brush Script MT", cursive;
+        font-size: 1.5rem;
+      }
+
+      .footer-links {
+        text-align: center;
+        font-size: 0.9rem;
+        color: #aaa;
+        margin-bottom: 30px;
+      }
+
+      .footer-btns {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 30px;
+      }
+
+      .footer-btn {
+        padding: 8px 15px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: background-color 0.3s;
+      }
+
+      .footer-btn.primary {
+        background-color: #fff;
+        color: #333;
+      }
+
+      .footer-btn.primary:hover {
+        background-color: #eee;
+      }
+
+      .footer-btn.secondary {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+
+      .footer-btn.secondary:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      .footer-bottom {
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .footer-logo {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #fff;
+        font-family: "Brush Script MT", cursive;
+      }
+
+      .footer-copyright {
+        font-size: 0.8rem;
+        color: #aaa;
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 10px;
+      }
+
+      .footer-social a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.2rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 992px) {
+        .contact-container {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .navbar-content {
+          position: relative;
+        }
+
+        .nav-menu {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background-color: #fff;
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+          flex-direction: column;
+          padding: 20px;
+          gap: 10px;
+          display: none;
+        }
+
+        .nav-menu.active {
+          display: flex;
+        }
+
+        .nav-menu li {
+          margin-left: 0;
+        }
+
+        .hamburger {
+          display: block;
+        }
+
+        .slider {
+          height: 200px;
+        }
+
+        .products-grid {
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        }
+
+        .footer-bottom {
+          flex-direction: column;
+          gap: 10px;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .products-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .slider {
+          height: 150px;
+        }
+
+        .section-title {
+          font-size: 1.5rem;
+        }
+
+        .contact-title {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="container navbar-content">
+        <div class="logo">Piu <span>Creativo</span></div>
+        <button class="hamburger">☰</button>
+        <ul class="nav-menu">
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Catálogo</a></li>
+          <li><a href="#">Recomendados</a></li>
+          <li><a href="#">Mis Órdenes</a></li>
+        </ul>
+        <div class="nav-icons">
+          <a href="#" class="cart-icon">
+            <span>🛒</span>
+            <span class="badge">2</span>
+          </a>
+          <a href="#" class="notification-icon">
+            <span>🔔</span>
+            <span class="badge">1</span>
+          </a>
+          <a href="#" class="profile-icon">
+            <span>👤</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Slider Section -->
+    <section class="slider-section">
+      <div class="container">
+        <div class="slider">
+          <div class="slide active">Slide 1 - Ofertas Especiales</div>
+          <div class="slide">Slide 2 - Nuevos Productos</div>
+          <div class="slide">Slide 3 - Colección de Temporada</div>
+          <div class="slider-controls">
+            <div class="slider-dot active" data-index="0"></div>
+            <div class="slider-dot" data-index="1"></div>
+            <div class="slider-dot" data-index="2"></div>
+          </div>
+          <div class="slider-arrows">
+            <div class="slider-arrow prev">❮</div>
+            <div class="slider-arrow next">❯</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section">
+      <div class="container">
+        <h2 class="section-title">Productos Destacados</h2>
+        <div class="products-grid">
+          <!-- Product 1 -->
+          <div class="product-card">
+            <div class="product-img">
+              <img src="/api/placeholder/400/300" alt="Libreta personalizada" />
+              <div class="favorite-btn">❤️</div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">Libreta personalizada</h3>
+              <p class="product-price">$250.00</p>
+              <a href="#" class="product-btn">Agregar al carrito</a>
+            </div>
+          </div>
+          <!-- Product 2 -->
+          <div class="product-card">
+            <div class="product-img">
+              <img src="/api/placeholder/400/300" alt="Tazas" />
+              <div class="favorite-btn">❤️</div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">Tazas</h3>
+              <p class="product-price">$180.00</p>
+              <a href="#" class="product-btn">Agregar al carrito</a>
+            </div>
+          </div>
+          <!-- Product 3 -->
+          <div class="product-card">
+            <div class="product-img">
+              <img src="/api/placeholder/400/300" alt="Termos" />
+              <div class="favorite-btn">❤️</div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">Termos</h3>
+              <p class="product-price">$320.00</p>
+              <a href="#" class="product-btn">Agregar al carrito</a>
+            </div>
+          </div>
+          <!-- Product 4 -->
+          <div class="product-card">
+            <div class="product-img">
+              <img src="/api/placeholder/400/300" alt="Camiseta Grafiti" />
+              <div class="favorite-btn">❤️</div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">Camiseta Grafiti</h3>
+              <p class="product-price">$280.00</p>
+              <a href="#" class="product-btn">Agregar al carrito</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+      <div class="container">
+        <h2 class="contact-title">Contáctanos</h2>
+        <div class="contact-container">
+          <div class="contact-form">
+            <h3 class="form-title">Cont<span>acto</span></h3>
+            <form>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Nombre" />
+              </div>
+              <div class="form-group">
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Correo electrónico"
+                />
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Mensaje" />
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="consent" />
+                <label for="consent">Acepto ser contactado por correo</label>
+              </div>
+              <button type="submit" class="form-btn">Enviar</button>
+            </form>
+          </div>
+          <div class="contact-info">
+            <p class="info-text">
+              Si está interesado en nuestros productos o quiere recibir más
+              información, no dude en contactarnos a través de cualquiera de
+              estos medios.
+            </p>
+            <div class="map-container">
+              <img src="/api/placeholder/400/200" alt="Mapa de ubicación" />
+            </div>
+            <div class="contact-details">
+              <div class="contact-item">
+                <span class="contact-icon">📍</span>
+                <span>Piu Creativo Storesl</span>
+              </div>
+              <div class="contact-item">
+                <span class="contact-icon">📞</span>
+                <span>555-123-4567</span>
+              </div>
+              <div class="contact-item">
+                <span class="contact-icon">✉️</span>
+                <span>info@piucreativo.com</span>
+              </div>
+            </div>
+            <div class="social-icons">
+              <a href="#" class="social-icon">f</a>
+              <a href="#" class="social-icon">t</a>
+              <a href="#" class="social-icon">in</a>
+              <a href="#" class="social-icon">ig</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-text">Soñando Nuevile Fusaila</div>
+        <div class="footer-links">
+          Piu Creativo © 2025 • Todos los derechos reservados • Comercio
+          electrónico • Aviso de privacidad
+        </div>
+        <div class="footer-btns">
+          <a href="#" class="footer-btn primary">Inicio</a>
+          <a href="#" class="footer-btn secondary">Catálogo</a>
+        </div>
+        <div class="footer-bottom">
+          <div class="footer-logo">Piu Creativo</div>
+          <div class="footer-copyright">
+            ©2025 Piucreativo. Todos los derechos reservados.
+          </div>
+          <div class="footer-social">
+            <a href="#">f</a>
+            <a href="#">t</a>
+            <a href="#">ig</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Navbar toggle
+      const hamburger = document.querySelector(".hamburger");
+      const navMenu = document.querySelector(".nav-menu");
+
+      hamburger.addEventListener("click", () => {
+        navMenu.classList.toggle("active");
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener("click", (event) => {
+        if (!event.target.closest(".navbar-content")) {
+          navMenu.classList.remove("active");
+        }
+      });
+
+      // Slider functionality
+      const slides = document.querySelectorAll(".slide");
+      const dots = document.querySelectorAll(".slider-dot");
+      const prevBtn = document.querySelector(".slider-arrow.prev");
+      const nextBtn = document.querySelector(".slider-arrow.next");
+      let currentSlide = 0;
+      const slideCount = slides.length;
+
+      // Set initial active slide
+      function showSlide(index) {
+        // Remove active class from all slides
+        slides.forEach((slide) => {
+          slide.classList.remove("active");
+        });
+
+        // Remove active class from all dots
+        dots.forEach((dot) => {
+          dot.classList.remove("active");
+        });
+
+        // Add active class to current slide and dot
+        slides[index].classList.add("active");
+        dots[index].classList.add("active");
+      }
+
+      // Next slide
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % slideCount;
+        showSlide(currentSlide);
+      }
+
+      // Previous slide
+      function prevSlide() {
+        currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+        showSlide(currentSlide);
+      }
+
+      // Event listeners for dots
+      dots.forEach((dot) => {
+        dot.addEventListener("click", () => {
+          const slideIndex = parseInt(dot.getAttribute("data-index"));
+          currentSlide = slideIndex;
+          showSlide(currentSlide);
+        });
+      });
+
+      // Event listeners for arrow buttons
+      prevBtn.addEventListener("click", prevSlide);
+      nextBtn.addEventListener("click", nextSlide);
+
+      // Auto slide
+      let slideInterval = setInterval(nextSlide, 5000);
+
+      // Reset interval when manually changing slides
+      function resetInterval() {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, 5000);
+      }
+
+      prevBtn.addEventListener("click", resetInterval);
+      nextBtn.addEventListener("click", resetInterval);
+      dots.forEach((dot) => {
+        dot.addEventListener("click", resetInterval);
+      });
+
+      // Favorite button toggle
+      const favoriteBtns = document.querySelectorAll(".favorite-btn");
+
+      favoriteBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (btn.innerText === "❤️") {
+            btn.innerText = "🤍";
+          } else {
+            btn.innerText = "❤️";
+          }
+        });
+      });
+
+      // Make slides clickable to navigate to product pages
+      slides.forEach((slide) => {
+        slide.addEventListener("click", () => {
+          const slideText = slide.innerText;
+          alert(`Navegando a: ${slideText}`);
+          // En una aplicación real, aquí iría: window.location.href = 'ruta-a-pagina';
+        });
+      });
+    </script>
+  </body>
+</html>
